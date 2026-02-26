@@ -416,7 +416,10 @@ footer a:hover { color: var(--white); }
 </footer>
 
 <script>
-  function joinWaitlist() {
+  const KLAVIYO_PUBLIC_KEY = 'Wi8Zpq';
+  const KLAVIYO_LIST_ID   = 'VqXF7p';
+
+  async function joinWaitlist() {
     const input = document.getElementById('email-input');
     const btn   = document.getElementById('submit-btn');
     const email = input.value.trim();
@@ -428,11 +431,38 @@ footer a:hover { color: var(--white); }
       return;
     }
 
-    btn.textContent = 'You\'re in! ✓';
-    btn.classList.add('success');
+    btn.textContent = 'Joining...';
     btn.disabled = true;
     input.disabled = true;
-    input.style.opacity = '0.5';
+
+    try {
+      const res = await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + KLAVIYO_PUBLIC_KEY, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'revision': '2023-12-15' },
+        body: JSON.stringify({
+          data: {
+            type: 'subscription',
+            attributes: {
+              list_id: KLAVIYO_LIST_ID,
+              email: email
+            }
+          }
+        })
+      });
+
+      if (res.ok || res.status === 202) {
+        btn.textContent = 'You\'re in! ✓';
+        btn.classList.add('success');
+        input.style.opacity = '0.5';
+      } else {
+        throw new Error('Failed');
+      }
+    } catch {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+      input.disabled = false;
+      input.style.opacity = '1';
+    }
   }
 </script>
 </body>
