@@ -13,8 +13,8 @@
 :root {
   --blue:   #6e96fb;
   --purple: #a940ff;
-  --bg:     #0d0e12;
-  --card:   #0d1018;
+  --bg:     #0E0E0E;
+  --card:   #0E0E0E;
   --white:  #ffffff;
   --muted:  rgba(255,255,255,0.5);
   --faint:  rgba(255,255,255,0.08);
@@ -33,42 +33,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Background ─────────────────────────────── */
-.bg-blob {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(90px);
-  pointer-events: none;
-  z-index: 0;
-  will-change: transform;
-}
-.bg-blob-1 {
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(110,150,251,0.28) 0%, transparent 65%);
-  top: -220px; right: -120px;
-}
-.bg-blob-2 {
-  width: 550px; height: 550px;
-  background: radial-gradient(circle, rgba(169,64,255,0.22) 0%, transparent 65%);
-  bottom: -120px; left: -120px;
-}
-.bg-blob-3 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, rgba(110,150,251,0.12) 0%, transparent 65%);
-  top: 55%; left: 45%;
-  transform: translate(-50%, -50%);
-}
 
-/* Subtle dot grid */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 36px 36px;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ── Nav ─────────────────────────────────────── */
 nav {
@@ -116,13 +81,11 @@ main {
 .card-outer {
   width: 100%;
   max-width: 620px;
-  background: linear-gradient(137deg, rgba(110,150,251,0.55) 0%, rgba(0,0,0,0.25) 50%, rgba(169,64,255,0.35) 100%);
+  background: rgba(255,255,255,0.06);
   border-radius: 26px;
   padding: 1.8px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(255,255,255,0.04);
 }
 .card {
-  background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
   background-color: var(--card);
   border-radius: 24px;
   padding: 52px 48px;
@@ -411,10 +374,6 @@ footer a:hover { color: var(--white); }
 </head>
 <body>
 
-<!-- Background effects -->
-<div class="bg-blob bg-blob-1"></div>
-<div class="bg-blob bg-blob-2"></div>
-<div class="bg-blob bg-blob-3"></div>
 
 <!-- Nav -->
 <nav>
