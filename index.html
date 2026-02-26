@@ -578,7 +578,7 @@ footer a:hover { color: var(--white); }
     try {
       const res = await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + KLAVIYO_PUBLIC_KEY, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'revision': '2023-12-15' },
+        headers: { 'content-type': 'application/json', 'revision': '2024-10-15' },
         body: JSON.stringify({
           data: {
             type: 'subscription',
@@ -598,14 +598,17 @@ footer a:hover { color: var(--white); }
         })
       });
 
-      if (res.ok || res.status === 202) {
+      if (res.status === 202) {
         btn.textContent = 'You\'re in! ✓';
         btn.classList.add('success');
         input.style.opacity = '0.5';
       } else {
-        throw new Error('Failed');
+        const body = await res.text();
+        console.error('Klaviyo error', res.status, body);
+        throw new Error(res.status + ': ' + body);
       }
-    } catch {
+    } catch (err) {
+      console.error('Submit error:', err);
       btn.textContent = 'Try again';
       btn.disabled = false;
       input.disabled = false;
