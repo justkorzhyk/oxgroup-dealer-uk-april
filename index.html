@@ -700,10 +700,13 @@ footer {
   const KLAVIYO_LIST_ID   = 'TGJ8qk';
 
   async function submitForm() {
+    console.log('[submit] called');
     const btn       = document.getElementById('submit-btn');
     const email     = document.getElementById('email-input').value.trim();
     const firstName = document.getElementById('first-name').value.trim();
     const lastName  = document.getElementById('last-name').value.trim();
+
+    console.log('[submit] fields:', { email, firstName, lastName });
 
     const required = [
       { el: document.getElementById('first-name'),  val: firstName },
@@ -724,13 +727,16 @@ footer {
       document.getElementById('email-input').classList.add('error');
       setTimeout(() => document.getElementById('email-input').classList.remove('error'), 1800);
       valid = false;
+      console.log('[submit] blocked: invalid email');
     }
 
     if (!document.getElementById('check-terms-tuff').checked) {
       document.getElementById('check-terms-tuff').closest('.checkbox-row').classList.add('checkbox-error');
       valid = false;
+      console.log('[submit] blocked: T&C not checked');
     }
 
+    console.log('[submit] valid:', valid);
     if (!valid) return;
 
     btn.textContent = 'Submitting…';
